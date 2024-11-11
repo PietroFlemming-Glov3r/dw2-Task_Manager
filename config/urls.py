@@ -23,4 +23,5 @@ urlpatterns = [
     path('projetos/', include('core.urls')),
     path('', lambda request: redirect('listar_projetos')), 
     path('accounts/', include('django.contrib.auth.urls')),
+    path('', include('core.urls')),
 ]
