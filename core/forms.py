@@ -1,28 +1,22 @@
 from django import forms
-from .models import Projeto
+from .models import Projeto, Tarefa, Comentario, Anexo 
 
 class ProjetoForm(forms.ModelForm):
     class Meta:
         model = Projeto
         fields = ['nome', 'descricao']
 
-from django import forms
-from .models import Tarefa  # Importe o modelo 'Tarefa' que o formulário usa
 
 class TarefaForm(forms.ModelForm):
     class Meta:
         model = Tarefa
-        fields = '__all__'  # Ou defina campos específicos
+        fields = '__all__'
 
-from .models import Comentario  # Importe o modelo 'Comentario'
 
 class ComentarioForm(forms.ModelForm):
     class Meta:
         model = Comentario
-        fields = '__all__'  # Ou especifique os campos necessários
-
-from django import forms
-from .models import Anexo  # Importe o modelo 'Anexo'
+        fields = ['tarefa', 'conteudo']
 
 class AnexoForm(forms.ModelForm):
     class Meta:
