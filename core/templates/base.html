@@ -28,9 +28,21 @@
                <h1>Projetos</h1>
                <ul>
                   {% for projeto in projetos %}
-                     {% if user in projeto.membros %}
-                        <li>{{ projeto.nome }} - {{ projeto.descricao }}</li>
-                     {% endif %}
+                    <li>{{ projeto.nome }} - {{ projeto.descricao }}</li>
+                    <ul>
+                     {% for tarefa in tarefas%}
+                        {% if tarefa.projeto == projeto %}
+                           <ul>
+                              <li>{{tarefa.nome}}</li> 
+                              <li>{{tarefa.descricao}}</li> 
+                              <li>{{tarefa.responsavel}}</li> 
+                              <li>{{tarefa.prazo}}</li>
+                           </ul>
+                           {% if tarefa.projeto == projeto %}
+                           {% endif %}
+                        {% endif %}
+                     {% endfor %}
+                    </ul>
                   {% empty %}
                     <li>Não há projetos disponíveis.</li>
                   {% endfor %}
