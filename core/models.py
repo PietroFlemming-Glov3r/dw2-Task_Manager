@@ -6,9 +6,13 @@ class Projeto(models.Model):
     descricao = models.TextField()
     criado_em = models.DateTimeField(auto_now_add=True)
     atualizado_em = models.DateTimeField(auto_now=True)
+    membros = models.ManyToManyField(User)
 
     def __str__(self):
         return self.nome
+
+    def get_absolute_url(self):
+        return ''
 
 class Tarefa(models.Model):
     projeto = models.ForeignKey(Projeto, on_delete=models.CASCADE, related_name="tarefas")
@@ -20,6 +24,9 @@ class Tarefa(models.Model):
 
     def __str__(self):
         return self.nome
+    
+    def get_absolute_url(self):
+        return ''
 
 class Comentario(models.Model):
     tarefa = models.ForeignKey(Tarefa, on_delete=models.CASCADE, related_name="comentarios")
@@ -29,6 +36,9 @@ class Comentario(models.Model):
 
     def __str__(self):
         return f"Comentário de {self.autor} em {self.tarefa}"
+    
+    def get_absolute_url(self):
+        return ''
 
 class Anexo(models.Model):
     tarefa = models.ForeignKey(Tarefa, on_delete=models.CASCADE, related_name="anexos")
@@ -38,10 +48,5 @@ class Anexo(models.Model):
     def __str__(self):
         return self.nome
 
-
-class Meta:
-    permissions = [
-        ("pode_gerenciar_projetos", "Pode gerenciar projetos"),
-        ("pode_atribuir_tarefas", "Pode atribuir tarefas"),
-        ("pode_comentar", "Pode comentar em tarefas"),
-    ]
+    def get_absolute_url(self):
+        return ''

@@ -1,0 +1,43 @@
+{% load static %} 
+<html>
+   <head>
+      <title>Django blog</title>
+      <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400" rel="stylesheet">
+      <link href="{% static 'css/base.css' %}" rel="stylesheet">
+   </head> 
+   <body>
+      <div> 
+         <header>
+            <div class="nav-left">
+               <h1><a href="{% url 'home' %}">Task Manager</a></h1>
+            </div>
+            <div class="nav-right">
+                {% if user.is_authenticated %}
+                    <p>{{ user.username }}!</p>
+                    <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}">Log In</a> 
+                {% endif %}
+            </div>
+        </header>
+         {% block content %}
+            {% if user.is_authenticated %}
+               <h1>Projetos</h1>
+               <ul>
+                  {% for projeto in projetos %}
+                     {% if user in projeto.membros %}
+                        <li>{{ projeto.nome }} - {{ projeto.descricao }}</li>
+                     {% endif %}
+                  {% empty %}
+                    <li>Não há projetos disponíveis.</li>
+                  {% endfor %}
+               </ul>
+            
+            {% endif %} 
+         {% endblock content %}
+      </div>
+    </body> 
+</html>
