@@ -6,7 +6,6 @@ class Projeto(models.Model):
     descricao = models.TextField()
     criado_em = models.DateTimeField(auto_now_add=True)
     atualizado_em = models.DateTimeField(auto_now=True)
-    membros = models.ManyToManyField(User)
 
     def __str__(self):
         return self.nome

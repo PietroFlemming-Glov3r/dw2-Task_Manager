@@ -5,18 +5,18 @@ from .forms import ProjetoForm, TarefaForm, ComentarioForm, AnexoForm  # Assumin
 from django.contrib.auth import views as auth_views
 
 def home(request):
-    return render(request, 'base.html')
-
-def listar_projetos(request):
     projetos = Projeto.objects.all()
-    return render(request, 'listar_projetos.html', {'projetos': projetos})
+    tarefas = Tarefa.objects.all()
+    comentarios = Comentario.objects.all()
+    anexos = Anexo.objects.all()
+    return render(request, 'base.html', {'projetos' : projetos, 'tarefas' : tarefas, 'comentarios' : comentarios, 'anexos' : anexos})
 
 def criar_projeto(request):
     if request.method == "POST":
         form = ProjetoForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('listar_projetos')
+            return redirect('')
     else:
         form = ProjetoForm()
     return render(request, 'criar_projeto.html', {'form': form})
