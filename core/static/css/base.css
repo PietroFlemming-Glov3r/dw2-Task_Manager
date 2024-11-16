@@ -1,46 +1,242 @@
 body {
-    font-family: 'Source Sans Pro', sans-serif; 
+    font-family: "Noto Sans", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-variation-settings:
+        "wdth" 100;
     font-size: 18px;
+    margin: 0;
   }
   
   header {
     border-bottom: 1px solid #999; 
     margin-bottom: 2rem;
     display: flex;
+    align-items: baseline;
+    background-color: #666666;
   }
   
   header h1 a {
-    color: red; 
+    font-family: "Funnel Display", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    color: #dddddd;
     text-decoration: none;
   }
-  
+
+  header button a {
+    font-optical-sizing: auto;
+    text-decoration: none;
+    color: #dddddd;
+  }
+
   .nav-left { 
     margin-right: auto;
+    padding-left: 2%;
   }
   
   .nav-right { 
     display: flex; 
-    padding-top: 2rem;
+    padding-top: 0.5%;
+    padding-right: 3%;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .nav-right p {
+    margin-right: 1rem;
+    color: #dddddd;
+    align-self:auto;
+    font-size: 20px;
+  }
+
+
+  button {
+    position: relative;
+    display: inline-block;
+    margin: 15px;
+    padding: 15px 30px;
+    text-align: center;
+    font-size: 18px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: #666666;
+    background: transparent;
+    cursor: pointer;
+    transition: ease-out 0.5s;
+    border: 2px solid #4e4e4e;
+    border-radius: 10px;
+    box-shadow: inset 0 0 0 0 #f7b502;
   }
   
-  .post-entry { 
-    margin-bottom: 2rem;
+  button:hover {
+    color: white;
+    box-shadow: inset 0 -100px 0 0 #f7b502;
   }
   
-  .post-entry h2 { 
-    margin: 0.5rem 0;
+  button:active {
+    transform: scale(0.9);
   }
-  
-  .post-entry h2 a, 
-  .post-entry h2 a:visited {
-    color: blue;
-    text-decoration: none; }
-  
-  .post-entry p { 
-    margin: 0; 
-    font-weight: 400;
-  }
-  
-  .post-entry h2 a:hover { 
-    color: red;
-  }
+
+  .login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 2%;
+    width: 50%;
+    max-width: 240px;
+    background-color: #e8e8e8;
+    border-radius: 10px;
+}
+
+.login h2 {
+    margin-bottom: 1rem;
+}
+
+.login form {
+    width: 100%;
+}
+
+.login form p {
+    width: 100%;
+}
+
+.login form input {
+    padding: 11px 10px;
+    font-size: 0.75rem;
+    border: 2px #4e4e4e solid;
+    border-radius: 5px;
+    background: #e8e8e8;
+    width: 100%;
+}
+
+.login form button {
+    margin-top: 1rem;
+    padding: 10px;
+    font-size: 1rem;
+    color: white;
+    background-color: #4e4e4e;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login form button:hover {
+    background-color: #333;
+}
+
+.login a {
+    margin-top: 1rem;
+    color: #4e4e4e;
+    text-decoration: none;
+}
+
+.login a:hover {
+    text-decoration: underline;
+}
+
+.signup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 2%;
+  width: 50%;
+  max-width: 300px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.signup h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.signup form {
+  width: 100%;
+}
+
+.signup form p {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.signup form input {
+  padding: 12px 10px;
+  font-size: 0.875rem;
+  border: 2px #4e4e4e solid;
+  border-radius: 5px;
+  background: #fff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.signup form button {
+  margin-top: 1rem;
+  padding: 12px;
+  font-size: 1rem;
+  color: white;
+  background-color: #4e4e4e;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.signup form button:hover {
+  background-color: #333;
+}
+
+.signup a {
+  margin-top: 1rem;
+  color: #4e4e4e;
+  text-decoration: none;
+}
+
+.signup a:hover {
+  text-decoration: underline;
+}
+
+.progress-bar {
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress {
+  height: 20px;
+  background-color: #4caf50;
+  width: 0;
+  transition: width 0.5s;
+}
+
+.comentar-btn{
+  align-items: center;
+  margin-top: 1rem;
+  padding: 5px;
+  font-size: 1rem;
+  color: #4e4e4e;
+  background: transparent;
+  border: 2px #4e4e4e solid;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.anexar-btn{
+  align-items: center;
+  margin-top: 1rem;
+  padding: 5px;
+  font-size: 1rem;
+  color: #4e4e4e;
+  background: transparent;
+  border: 2px #4e4e4e solid;
+  border-radius: 5px;
+  cursor: pointer;
+}

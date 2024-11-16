@@ -1,55 +1,129 @@
-{% load static %} 
+{% load static %}
 <html>
-   <head>
-      <title>Django blog</title>
-      <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400" rel="stylesheet">
-      <link href="{% static 'css/base.css' %}" rel="stylesheet">
-   </head> 
-   <body>
-      <div> 
-         <header>
-            <div class="nav-left">
-               <h1><a href="{% url 'home' %}">Task Manager</a></h1>
+  <head>
+    <title>Task Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link href="{% static 'css/base.css' %}" rel="stylesheet" />
+  </head>
+  <body>
+    <div>
+      <header>
+        <div class="nav-left">
+          <h1><a href="{% url 'home' %}">Task Manager</a></h1>
+        </div>
+        <div class="nav-right">
+          {% if user.is_authenticated %}
+          <p class="username">{{ user.username }}</p>
+          <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" style="color: #dddddd">Logout</button>
+          </form>
+          {% else %}
+          <button><a href="{% url 'login' %}">Log In</a></button>
+          {% endif %}
+        </div>
+      </header>
+      {% block content %} {% if user.is_authenticated %}
+      <h1>Projetos</h1>
+      <button>Criar Projeto</button>
+      <ul>
+        {% for projeto in projetos %}
+        <div class="projeto">
+          <li>
+            {{ projeto.nome }} - {{ projeto.descricao }}
+            <button>Editar Projeto</button>
+
+            {% with total_tarefas=projeto.tarefa.count completed_tarefas=projeto.tarefa.filter(status='Concluída').count %}
+               {% if total_tarefas > 0 %}
+                  {% with progress=(completed_tarefas|floatformat:2|floatformat:"0")|divisibleby:total_tarefas|floatformat:2 %}
+            <div class="progress-bar">
+              <div class="progress" style="width: {{ progress }}%;"></div>
             </div>
-            <div class="nav-right">
-                {% if user.is_authenticated %}
-                    <p>{{ user.username }}!</p>
-                    <form action="{% url 'logout' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit">Logout</button>
-                    </form>
-                {% else %}
-                    <a href="{% url 'login' %}">Log In</a> 
+            <p>{{ progress }}% concluído</p>
+                  {% endwith %} 
+               {% else %}
+            <div class="progress-bar">
+              <div class="progress" style="width: 0%"></div>
+            </div>
+            <p>0% concluído</p>
+               {% endif %} 
+            {% endwith %}
+
+            <ul>
+              {% for tarefa in tarefas %} {% if tarefa.projeto == projeto %}
+              <li class="tarefa">
+                <p>{{ tarefa.nome }}</p>
+                <p>{{ tarefa.descricao }}</p>
+                <p>Responsável: {{ tarefa.responsavel }}</p>
+                <p>Prazo: {{ tarefa.prazo }}</p>
+                <p>Status: {{ tarefa.status }}</p>
+                {% if tarefa.status == 'Concluída' %}
+                <p>Data de Conclusão: {{ tarefa.data_conclusao }}</p>
                 {% endif %}
-            </div>
-        </header>
-         {% block content %}
-            {% if user.is_authenticated %}
-               <h1>Projetos</h1>
-               <ul>
-                  {% for projeto in projetos %}
-                    <li>{{ projeto.nome }} - {{ projeto.descricao }}</li>
-                    <ul>
-                     {% for tarefa in tarefas%}
-                        {% if tarefa.projeto == projeto %}
-                           <ul>
-                              <li>{{tarefa.nome}}</li> 
-                              <li>{{tarefa.descricao}}</li> 
-                              <li>{{tarefa.responsavel}}</li> 
-                              <li>{{tarefa.prazo}}</li>
-                           </ul>
-                           {% if tarefa.projeto == projeto %}
-                           {% endif %}
-                        {% endif %}
-                     {% endfor %}
-                    </ul>
-                  {% empty %}
-                    <li>Não há projetos disponíveis.</li>
-                  {% endfor %}
-               </ul>
-            
-            {% endif %} 
-         {% endblock content %}
-      </div>
-    </body> 
+                <button>Editar Tarefa</button>
+                <div class="comentarios">
+                  {% with comentarios|length as num_comentarios %} {% if
+                  num_comentarios > 0 %}
+                  <p>Comentários</p>
+                  {% for comentario in comentarios %} {% if comentario.tarefa ==
+                  tarefa %}
+                  <p>{{ comentario.conteudo }}</p>
+                  <p>Data: {{ comentario.criado_em }}</p>
+                  <p>Autor: {{ comentario.autor }}</p>
+                  {% endif %} {% endfor %} {% endif %} {% endwith %}
+                  <form method="POST">
+                    {% csrf_token %}
+                    <input
+                      type="hidden"
+                      name="tarefa_id"
+                      value="{{ tarefa.id }}"
+                    />
+                    <input type="text" name="texto" />
+                    <button class="comentar-btn" type="submit">Comentar</button>
+                  </form>
+                </div>
+                <div class="anexos">
+                  {% with anexos|length as num_anexos %} {% if num_anexos > 0 %}
+                  <p>Anexos</p>
+                  <ul>
+                    {% for anexo in anexos %} {% if anexo.tarefa == tarefa %}
+                    <li>
+                      <a href="{{ anexo.arquivo.url }}">{{ anexo.nome }}</a>
+                      <p>Data: {{ anexo.criado_em }}</p>
+                      <p>Autor: {{ anexo.autor }}</p>
+                    </li>
+                    {% endif %} {% endfor %}
+                  </ul>
+                  {% endif %} {% endwith %}
+                  <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input
+                      type="hidden"
+                      name="tarefa_id"
+                      value="{{ tarefa.id }}"
+                    />
+                    <input type="file" name="arquivo" />
+                    <button class="anexar-btn" type="submit">Anexar</button>
+                  </form>
+                </div>
+              </li>
+              {% endif %} {% endfor %}
+              <li>
+                <button>Criar Tarefa</button>
+              </li>
+            </ul>
+          </li>
+        </div>
+        {% empty %}
+        <li>Não há projetos disponíveis.</li>
+        {% endfor %}
+      </ul>
+      {% endif %} {% endblock content %}
+    </div>
+  </body>
 </html>

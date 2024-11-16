@@ -7,14 +7,16 @@ from django.contrib.auth import views as auth_views
 def home(request):
     projetos = Projeto.objects.all()
     tarefas = Tarefa.objects.all()
-    return render(request, 'base.html', {'projetos' : projetos, 'tarefa' : tarefas})
+    comentarios = Comentario.objects.all()
+    anexos = Anexo.objects.all()
+    return render(request, 'base.html', {'projetos' : projetos, 'tarefas' : tarefas, 'comentarios' : comentarios, 'anexos' : anexos})
 
 def criar_projeto(request):
     if request.method == "POST":
         form = ProjetoForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('listar_projetos')
+            return redirect('')
     else:
         form = ProjetoForm()
     return render(request, 'criar_projeto.html', {'form': form})
