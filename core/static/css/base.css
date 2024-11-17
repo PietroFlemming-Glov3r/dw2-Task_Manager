@@ -10,17 +10,51 @@ body {
   }
   
   header h1 a {
-    color: red; 
-    text-decoration: none;
+   
   }
   
-  .nav-left { 
-    margin-right: auto;
-  }
-  
-  .nav-right { 
+  .nav {
     display: flex; 
-    padding-top: 2rem;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    padding: 15px 20px;
+  }
+
+  .nav-left {
+    a {
+      color: red; 
+      text-decoration: none; 
+    }
+
+    h1 {
+      margin: 0;
+    }
+  }
+  
+  .nav-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    p {
+      margin: 0;
+    }
+    
+    form {
+      margin: 0;
+    }
+
+    button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      font-family: 'Source Sans Pro', sans-serif; 
+      font-size: 18px;
+      color: #3084d7;
+      font-weight: 600;
+    }
   }
   
   .post-entry { 

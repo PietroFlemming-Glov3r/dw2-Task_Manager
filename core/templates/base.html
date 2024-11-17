@@ -1,55 +1,60 @@
-{% load static %} 
+{% load static %}
 <html>
-   <head>
-      <title>Django blog</title>
-      <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400" rel="stylesheet">
-      <link href="{% static 'css/base.css' %}" rel="stylesheet">
-   </head> 
-   <body>
-      <div> 
-         <header>
+
+<head>
+   <title>Django blog</title>
+   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400" rel="stylesheet">
+   <link href="{% static 'css/base.css' %}" rel="stylesheet">
+</head>
+
+<body>
+   <div>
+      <header>
+         <div class="nav">
             <div class="nav-left">
-               <h1><a href="{% url 'home' %}">Task Manager</a></h1>
+               <h1><a class="teste" href="{% url 'home' %}">Task Manager</a></h1>
             </div>
             <div class="nav-right">
-                {% if user.is_authenticated %}
-                    <p>{{ user.username }}!</p>
-                    <form action="{% url 'logout' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit">Logout</button>
-                    </form>
-                {% else %}
-                    <a href="{% url 'login' %}">Log In</a> 
-                {% endif %}
+               {% if user.is_authenticated %}
+               <p>{{ user.username }}!</p>
+               <form action="{% url 'logout' %}" method="post">
+                  {% csrf_token %}
+                  <button type="submit">Logout</button>
+               </form>
+               {% else %}
+               <a href="{% url 'login' %}">Log In</a>
+               {% endif %}
             </div>
-        </header>
-         {% block content %}
-            {% if user.is_authenticated %}
-               <h1>Projetos</h1>
-               <ul>
-                  {% for projeto in projetos %}
-                    <li>{{ projeto.nome }} - {{ projeto.descricao }}</li>
-                    <ul>
-                     {% for tarefa in tarefas%}
-                        {% if tarefa.projeto == projeto %}
-                           <ul>
-                              <li>{{tarefa.nome}}</li> 
-                              <li>{{tarefa.descricao}}</li> 
-                              <li>{{tarefa.responsavel}}</li> 
-                              <li>{{tarefa.prazo}}</li>
-                           </ul>
-                           {% if tarefa.projeto == projeto %}
-                           {% endif %}
-                        {% endif %}
-                     {% endfor %}
-                    </ul>
-                  {% empty %}
-                    <li>Não há projetos disponíveis.</li>
-                  {% endfor %}
-               </ul>
-            
-            {% endif %} 
-         {% endblock content %}
-      </div>
-    </body> 
+         </div>
+      </header>
+      {% block content %}
+      {% if user.is_authenticated %}
+      <h1>Projetos</h1>
+      <ul>
+         {% for projeto in projetos %}
+         <li>{{ projeto.nome }} - {{ projeto.descricao }}</li>
+         <ul>
+            {% for tarefa in tarefas%}
+            {% if tarefa.projeto == projeto %}
+            <ul>
+               <li>{{tarefa.nome}}</li>
+               <li>{{tarefa.descricao}}</li>
+               <li>{{tarefa.responsavel}}</li>
+               <li>{{tarefa.prazo}}</li>
+            </ul>
+            {% if tarefa.projeto == projeto %}
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+         </ul>
+         {% empty %}
+         <li>Não há projetos disponíveis.</li>
+         {% endfor %}
+      </ul>
+
+      {% endif %}
+      {% endblock content %}
+   </div>
+</body>
+
 </html>

@@ -14,7 +14,7 @@ def criar_projeto(request):
         form = ProjetoForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('listar_projetos')
+            return redirect('/')
     else:
         form = ProjetoForm()
-    return render(request, 'criar_projeto.html', {'form': form})
+    return render(request, 'criar_projetos.html', {'form': form})
