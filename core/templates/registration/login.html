@@ -1,12 +1,26 @@
 {% extends 'base.html' %}
 
-{% block content %} 
-    <h2>Log In</h2> 
+{% block content %}
+<div class="login">
+    <h1>Login</h1>
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Log In</button>
+        <!-- {{ form.as_p }} -->
+        <div class="fields">
+            <div class="field">
+                <p>Usuário: </p>
+                {{ form.username }}
+            </div>
+            <div class="field">
+                <p>Senha: </p>
+                {{ form.password }}
+            </div>
+        </div>
+        <button type="submit">Login</button>
+        <button class="criar_button">
+            <a href="/accounts/signup">Sign up</a>
+         </button>
     </form>
+</div>
 
-    <a href="/accounts/signup">Sign up</a>
 {% endblock content %}
