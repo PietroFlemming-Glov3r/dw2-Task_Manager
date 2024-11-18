@@ -64,6 +64,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'custom_filters': 'core.templatetags.custom_filters',
+            },
         },
     },
 ]
@@ -116,7 +119,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+<<<<<<< Updated upstream
 STATIC_URL = 'core/static/'
+=======
+STATIC_URL = 'static/'
+>>>>>>> Stashed changes
 STATICFILES_DIRS = [str(BASE_DIR.joinpath('core/static'))]
 
 # Default primary key field type

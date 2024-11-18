@@ -229,6 +229,7 @@ body {
   cursor: pointer;
 }
 
+<<<<<<< Updated upstream
 .anexar-btn{
   align-items: center;
   margin-top: 1rem;
@@ -239,4 +240,46 @@ body {
   border: 2px #4e4e4e solid;
   border-radius: 5px;
   cursor: pointer;
+=======
+.projects-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.project-column {
+  flex: 1 1 30%;
+  max-width: 300px;
+  min-width: 250px;
+  box-sizing: border-box;
+}
+
+.progress-container {
+  margin: 15px 0;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 20px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background-color: #4CAF50;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  display: block;
+  margin-top: 5px;
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+>>>>>>> Stashed changes
 }
