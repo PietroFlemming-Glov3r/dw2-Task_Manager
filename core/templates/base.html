@@ -5,6 +5,8 @@
    <title>Django blog</title>
    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400" rel="stylesheet">
    <link href="{% static 'css/base.css' %}" rel="stylesheet">
+   <link href="{% static 'css/criar_tarefa.css' %}" rel="stylesheet">
+   <link href="{% static 'css/criar_projeto.css' %}" rel="stylesheet">
 </head>
 
 <body>
@@ -12,46 +14,57 @@
       <header>
          <div class="nav">
             <div class="nav-left">
-               <h1><a class="teste" href="{% url 'home' %}">Task Manager</a></h1>
+               <h1><a href="{% url 'home' %}">Task Manager</a></h1>
             </div>
             <div class="nav-right">
                {% if user.is_authenticated %}
-               <p>{{ user.username }}!</p>
+               <p class="user_logged">{{ user.username }}!</p>
                <form action="{% url 'logout' %}" method="post">
                   {% csrf_token %}
                   <button type="submit">Logout</button>
                </form>
                {% else %}
-               <a href="{% url 'login' %}">Log In</a>
+               <a class="loggin_button" href="{% url 'login' %}">Login</a>
                {% endif %}
             </div>
          </div>
       </header>
       {% block content %}
       {% if user.is_authenticated %}
-      <h1>Projetos</h1>
-      <ul>
-         {% for projeto in projetos %}
-         <li>{{ projeto.nome }} - {{ projeto.descricao }}</li>
+      <div class="content">
+         <div class="actions">
+            <h1 class="title">Projetos</h1>
+            <button class="criar_button">
+               <a href="{% url 'criar_projeto' %}">Criar Novo Projeto</a>
+            </button>
+         </div>
          <ul>
-            {% for tarefa in tarefas%}
-            {% if tarefa.projeto == projeto %}
+            {% for projeto in projetos %}
+            <li class="item">
+               <p>{{ projeto.nome }} - {{ projeto.descricao }}</p>
+               <p>-</p>
+               <a href="{% url 'criar_tarefa' %}">Lista Tarefas</a>               
+            </li>
+
             <ul>
-               <li>{{tarefa.nome}}</li>
-               <li>{{tarefa.descricao}}</li>
-               <li>{{tarefa.responsavel}}</li>
-               <li>{{tarefa.prazo}}</li>
+               {% for tarefa in tarefas%}
+               {% if tarefa.projeto == projeto %}
+               <ul>
+                  <li>{{tarefa.nome}}</li>
+                  <li>{{tarefa.descricao}}</li>
+                  <li>{{tarefa.responsavel}}</li>
+                  <li>{{tarefa.prazo}}</li>
+               </ul>
+               {% if tarefa.projeto == projeto %}
+               {% endif %}
+               {% endif %}
+               {% endfor %}
             </ul>
-            {% if tarefa.projeto == projeto %}
-            {% endif %}
-            {% endif %}
+            {% empty %}
+            <li>Não há projetos disponíveis.</li>
             {% endfor %}
          </ul>
-         {% empty %}
-         <li>Não há projetos disponíveis.</li>
-         {% endfor %}
-      </ul>
-
+      </div>
       {% endif %}
       {% endblock content %}
    </div>

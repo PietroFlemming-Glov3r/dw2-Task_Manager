@@ -10,7 +10,7 @@ def home(request):
     return render(request, 'base.html', {'projetos' : projetos, 'tarefa' : tarefas})
 
 def criar_projeto(request):
-    if request.method == "POST":
+    if request.method == "GET":
         form = ProjetoForm(request.POST)
         if form.is_valid():
             form.save()
@@ -18,3 +18,13 @@ def criar_projeto(request):
     else:
         form = ProjetoForm()
     return render(request, 'criar_projetos.html', {'form': form})
+
+def criar_tarefa(request):
+    if request.method == "GET":
+        form = TarefaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    else:
+        form = ProjetoForm()
+    return render(request, 'criar_tarefas.html', {'form': form})

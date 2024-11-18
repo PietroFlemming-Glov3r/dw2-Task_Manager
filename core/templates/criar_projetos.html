@@ -1,12 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div>
-    <h1>Criar Novo Projeto</h1>
+<div class="criar_projeto">
+    <h1 class="title">Criar Novo Projeto</h1>
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Salvar Projeto</button>
+        <!-- {{ form.as_p }} -->
+        <div class="fields">
+            <div class="field">
+                <p>Nome: </p>
+                {{ form.nome }}
+            </div>
+            <div class="field">
+                <p>Descrição: </p>
+                {{ form.descricao }}
+            </div>
+        </div>
+        <div class="project_save">
+            <button type="submit">Salvar Projeto</button>
+        </div>
     </form>
 </div>
 

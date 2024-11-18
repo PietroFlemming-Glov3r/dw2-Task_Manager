@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 class Projeto(models.Model):
     nome = models.CharField(max_length=100)
@@ -18,7 +19,7 @@ class Tarefa(models.Model):
     nome = models.CharField(max_length=100)
     descricao = models.TextField()
     responsavel = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    prazo = models.DateField()
+    prazo = models.DateTimeField(default=timezone.now, blank=True, null=True)
     status = models.CharField(max_length=20, choices=[('pendente', 'Pendente'), ('em progresso', 'Em Progresso'), ('concluída', 'Concluída')])
 
     def __str__(self):

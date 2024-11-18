@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="criar_tarefa">
+    <h1 class="title">Criar Nova Tarefa</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <!-- {{ form.as_p }} -->
+        <div class="row">
+            <div class="field">
+                <p>Projeto: </p>
+                {{ form.projeto }}
+            </div>
+            <div class="field">
+                <p>Nome: </p>
+                {{ form.nome }}
+            </div>
+            <div class="field">
+                <p>responsável: </p>
+                {{ form.responsavel }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="field">
+                <p>Prazo: </p>
+                {{ form.prazo }}
+            </div>
+            <div class="field">
+                <p>Status: </p>
+                {{ form.status }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="field">
+                <p>Descrição: </p>
+                {{ form.descricao }}
+            </div>
+        </div>
+        <button class="save_tarefa" type="submit">Salvar Tarefa</button>
+    </form>
+</div>
+
+{% endblock content %}

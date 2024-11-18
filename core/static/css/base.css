@@ -1,16 +1,14 @@
 body {
     font-family: 'Source Sans Pro', sans-serif; 
     font-size: 18px;
+    margin: 0;
+    background-color: #f1f1f1;
+    color: #2c2e32;
   }
   
   header {
     border-bottom: 1px solid #999; 
-    margin-bottom: 2rem;
-    display: flex;
-  }
-  
-  header h1 a {
-   
+    display: flex; 
   }
   
   .nav {
@@ -19,12 +17,18 @@ body {
     align-items: center;
     width: 100vw;
     padding: 15px 20px;
+    background: #59509b;
+    color: #f1f1f1;
   }
 
   .nav-left {
     a {
-      color: red; 
-      text-decoration: none; 
+      font-size: 26px;
+      color: #f1f1f1;
+      border-radius: 8px;
+      padding: 8px;
+      text-decoration: none;
+      text-shadow: 1.95px 1.95px 2.6px rgba(0, 0, 0, 0.15); 
     }
 
     h1 {
@@ -37,6 +41,10 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    .user_logged {
+      text-shadow: 1.95px 1.95px 2.6px rgba(0, 0, 0, 0.15); 
+
+    }
 
     p {
       margin: 0;
@@ -46,14 +54,82 @@ body {
       margin: 0;
     }
 
-    button {
-      background-color: transparent;
+    button, .loggin_button{
+      background-color: #5865f2;
+      border-radius: 8px;
       border: none;
       cursor: pointer;
       font-family: 'Source Sans Pro', sans-serif; 
       font-size: 18px;
-      color: #3084d7;
+      color: #f1f1f1;
       font-weight: 600;
+      padding: 4px 8px;
+      box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    }
+  }
+  .loggin_button {
+    text-decoration: none;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    padding: 0 20px;
+
+    .actions {
+      button {
+        background-color: #5865f2;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-family: 'Source Sans Pro', sans-serif; 
+        font-size: 18px;
+        font-weight: 600;
+        padding: 8px 10px;
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+        
+        a {
+          color: #f1f1f1;
+          text-decoration: none;
+        }
+      }
+    }
+
+    h1 {
+      margin: 0;
+      text-shadow: 1.95px 1.95px 2.6px rgba(0, 0, 0, 0.15);
+    }
+
+    h1.title {
+      text-align: center;
+    }
+
+    ul {
+      padding: 0;
+    }
+
+    li.item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      
+      p {
+        margin: 0;
+      }
+
+    button {
+      background-color: #5865f2;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Source Sans Pro', sans-serif; 
+      font-size: 18px;
+      color: #f1f1f1;
+      font-weight: 600;
+      padding: 4px 8px;
+      box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+      }
     }
   }
   

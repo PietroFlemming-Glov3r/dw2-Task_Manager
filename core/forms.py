@@ -11,6 +11,9 @@ class TarefaForm(forms.ModelForm):
     class Meta:
         model = Tarefa
         fields = '__all__'
+        widgets = {
+            'prazo': forms.DateInput(attrs={'type': 'date'}),
+        }
 
 
 class ComentarioForm(forms.ModelForm):
