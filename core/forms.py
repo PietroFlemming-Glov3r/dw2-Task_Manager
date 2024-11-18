@@ -24,4 +24,4 @@ class ComentarioForm(forms.ModelForm):
 class AnexoForm(forms.ModelForm):
     class Meta:
         model = Anexo
-        fields = '__all__'  # Ou especifique os campos necessários
+        fields = ['arquivo', 'nome'] 

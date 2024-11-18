@@ -3,41 +3,53 @@
 {% block content %}
 <div class="criar_tarefa">
     <h1 class="title">Criar Nova Tarefa</h1>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <!-- {{ form.as_p }} -->
+        <!-- Formulário da Tarefa -->
         <div class="row">
             <div class="field">
-                <p>Projeto: </p>
+                <p>Projeto:</p>
                 {{ form.projeto }}
             </div>
             <div class="field">
-                <p>Nome: </p>
+                <p>Nome:</p>
                 {{ form.nome }}
             </div>
             <div class="field">
-                <p>responsável: </p>
+                <p>Responsável:</p>
                 {{ form.responsavel }}
             </div>
         </div>
         <div class="row">
             <div class="field">
-                <p>Prazo: </p>
+                <p>Prazo:</p>
                 {{ form.prazo }}
             </div>
             <div class="field">
-                <p>Status: </p>
+                <p>Status:</p>
                 {{ form.status }}
             </div>
         </div>
         <div class="row">
             <div class="field">
-                <p>Descrição: </p>
+                <p>Descrição:</p>
                 {{ form.descricao }}
             </div>
         </div>
+
+        <!-- Formulário de Anexo -->
+        <div class="row">
+            <div class="field">
+                <p>Arquivo Anexo:</p>
+                {{ anexo_form.arquivo }}
+            </div>
+            <div class="field">
+                <p>Nome do Arquivo:</p>
+                {{ anexo_form.nome }}
+            </div>
+        </div>
+
         <button class="save_tarefa" type="submit">Salvar Tarefa</button>
     </form>
 </div>
-
 {% endblock content %}

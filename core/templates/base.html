@@ -7,10 +7,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@100..900&display=swap" rel="stylesheet" />
   <link href="{% static 'css/base.css' %}" rel="stylesheet" />
-  <link href="{% static 'css/criar_tarefa.css' %}" rel="stylesheet" />
-  <link href="{% static 'css/criar_projeto.css' %}" rel="stylesheet" />
-  <link href="{% static 'css/login.css' %}" rel="stylesheet" />
-  <link href="{% static 'css/signup.css' %}" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -43,6 +40,7 @@
     <h1 class="title">Projetos</h1>
     <div class="actions">
       <button><a href="{% url 'criar_projeto' %}">Criar Projeto</a></button>
+      <button><a href="{% url 'criar_tarefa' %}">Criar Tarefa</a></button>
     </div>
 
     <!-- Container de Projetos -->
@@ -53,59 +51,54 @@
         <div class="project-header">
           <h2>{{ projeto.nome }}</h2>
           <p>{{ projeto.descricao }}</p>
-          <button><a href="#">Editar Projeto</a></button>
+          <button class="toggle-tasks" data-project-id="{{ projeto.id }}">Mostrar Tarefas</button>
+          <form action="{% url 'excluir_projeto' projeto.id %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="delete-project" onclick="return confirm('Tem certeza que deseja excluir este projeto?');">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </form>
         </div>
 
         <!-- Tarefas do Projeto -->
-        <ul class="tasks-list">
+        <ul id="tasks-{{ projeto.id }}" class="tasks-list" style="display: none; margin-top: 10px;">
           {% for tarefa in tarefas %}
           {% if tarefa.projeto == projeto %}
           <li class="task-item" style="border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; border-radius: 8px; background-color: #f9f9f9;">
             <!-- Detalhes da Tarefa -->
             <h3>{{ tarefa.nome }}</h3>
-            <p>{{ tarefa.descricao }}</p>
+            <p><strong>Descrição:</strong> {{ tarefa.descricao }}</p>
             <p><strong>Responsável:</strong> {{ tarefa.responsavel }}</p>
             <p><strong>Prazo:</strong> {{ tarefa.prazo }}</p>
             <p><strong>Status:</strong> {{ tarefa.status }}</p>
             {% if tarefa.status == 'Concluída' %}
             <p><strong>Data de Conclusão:</strong> {{ tarefa.data_conclusao }}</p>
             {% endif %}
-            <button><a href="#">Editar Tarefa</a></button>
 
-            <!-- Seção de Anexos -->
+            <!-- Anexos da Tarefa -->
+            {% with tarefa.anexos.all as anexos %}
+            {% if anexos %}
             <div class="attachments-section">
-              {% with anexos|length as num_anexos %}
-              {% if num_anexos > 0 %}
               <h4>Anexos:</h4>
               <ul>
                 {% for anexo in anexos %}
-                {% if anexo.tarefa == tarefa %}
                 <li>
-                  <a href="{{ anexo.arquivo.url }}">{{ anexo.nome }}</a>
-                  <p><strong>Data:</strong> {{ anexo.criado_em }}</p>
-                  <p><strong>Autor:</strong> {{ anexo.autor }}</p>
+                  <a href="{{ anexo.arquivo.url }}" target="_blank">{{ anexo.nome }}</a>
                 </li>
-                {% endif %}
                 {% endfor %}
               </ul>
-              {% endif %}
-              {% endwith %}
-              <!-- Botão para anexar arquivo -->
-              <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <input type="hidden" name="tarefa_id" value="{{ tarefa.id }}" />
-                <input type="file" name="arquivo" />
-                <button type="submit">Anexar</button>
-              </form>
             </div>
+            {% endif %}
+            {% endwith %}
+            <form action="{% url 'excluir_tarefa' tarefa.id %}" method="post" style="display: inline;">
+              {% csrf_token %}
+              <button type="submit" class="delete-task" onclick="return confirm('Tem certeza que deseja excluir esta tarefa?');">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </form>
           </li>
           {% endif %}
           {% endfor %}
-
-          <!-- Botão para criar nova tarefa -->
-          <li>
-            <button><a href="{% url 'criar_tarefa' %}">Criar Tarefa</a></button>
-          </li>
         </ul>
       </div>
       {% empty %}
@@ -115,6 +108,26 @@
     {% endif %}
     {% endblock content %}
   </div>
+
+  <!-- Script para alternar a exibição das tarefas -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggleButtons = document.querySelectorAll('.toggle-tasks');
+      toggleButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const projectId = button.getAttribute('data-project-id');
+          const tasksList = document.getElementById(`tasks-${projectId}`);
+          if (tasksList.style.display === 'none') {
+            tasksList.style.display = 'block';
+            button.textContent = 'Esconder Tarefas';
+          } else {
+            tasksList.style.display = 'none';
+            button.textContent = 'Mostrar Tarefas';
+          }
+        });
+      });
+    });
+  </script>
 </body>
 
 </html>

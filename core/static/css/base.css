@@ -1,156 +1,209 @@
 body {
-    font-family: 'Source Sans Pro', sans-serif; 
-    font-size: 18px;
-    margin: 0;
-    background-color: #f1f1f1;
-    color: #2c2e32;
-  }
-  
-  header {
-    border-bottom: 1px solid #999; 
-    display: flex; 
-  }
-  
-  .nav {
-    display: flex; 
-    justify-content: space-between;
-    align-items: center;
-    width: 100vw;
-    padding: 15px 20px;
-    background: #59509b;
-    color: #f1f1f1;
-  }
+  font-family: 'Source Sans Pro', sans-serif; 
+  font-size: 18px;
+  margin: 0;
+  background-color: #f1f1f1;
+  color: #2c2e32;
+}
 
-  .nav-left {
-    a {
-      font-size: 26px;
-      color: #f1f1f1;
-      border-radius: 8px;
-      padding: 8px;
-      text-decoration: none;
-      text-shadow: 1.95px 1.95px 2.6px rgba(0, 0, 0, 0.15); 
-    }
+header {
+  border-bottom: 1px solid #999; 
+  display: flex; 
+}
 
-    h1 {
-      margin: 0;
-    }
-  }
-  
-  .nav-right {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    .user_logged {
-      text-shadow: 1.95px 1.95px 2.6px rgba(0, 0, 0, 0.15); 
+.nav {
+  display: flex; 
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  padding: 15px 20px;
+  background: #59509b;
+  color: #f1f1f1;
+}
 
-    }
+.nav-left a {
+  font-size: 26px;
+  color: #f1f1f1;
+  border-radius: 8px;
+  padding: 8px;
+  text-decoration: none;
+  text-shadow: 1.95px 1.95px 2.6px rgba(0, 0, 0, 0.15); 
+}
 
-    p {
-      margin: 0;
-    }
-    
-    form {
-      margin: 0;
-    }
+.nav-left h1 {
+  margin: 0;
+}
 
-    button, .loggin_button{
-      background-color: #5865f2;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      font-family: 'Source Sans Pro', sans-serif; 
-      font-size: 18px;
-      color: #f1f1f1;
-      font-weight: 600;
-      padding: 4px 8px;
-      box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-    }
-  }
-  .loggin_button {
-    text-decoration: none;
-  }
+.nav-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
 
-  .content {
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-    padding: 0 20px;
+.nav-right .user_logged {
+  text-shadow: 1.95px 1.95px 2.6px rgba(0, 0, 0, 0.15); 
+}
 
-    .actions {
-      button {
-        background-color: #5865f2;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        font-family: 'Source Sans Pro', sans-serif; 
-        font-size: 18px;
-        font-weight: 600;
-        padding: 8px 10px;
-        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-        
-        a {
-          color: #f1f1f1;
-          text-decoration: none;
-        }
-      }
-    }
+.nav-right p {
+  margin: 0;
+}
 
-    h1 {
-      margin: 0;
-      text-shadow: 1.95px 1.95px 2.6px rgba(0, 0, 0, 0.15);
-    }
+.nav-right form {
+  margin: 0;
+}
 
-    h1.title {
-      text-align: center;
-    }
+.nav-right button,
+.nav-right .loggin_button {
+  background-color: #5865f2;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Source Sans Pro', sans-serif; 
+  font-size: 18px;
+  color: #f1f1f1;
+  font-weight: 600;
+  padding: 4px 8px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
 
-    ul {
-      padding: 0;
-    }
+.loggin_button {
+  text-decoration: none;
+}
 
-    li.item {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      
-      p {
-        margin: 0;
-      }
+.content {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  padding: 0 20px;
+  align-items: center;
+}
 
-    button {
-      background-color: #5865f2;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      font-family: 'Source Sans Pro', sans-serif; 
-      font-size: 18px;
-      color: #f1f1f1;
-      font-weight: 600;
-      padding: 4px 8px;
-      box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-      }
-    }
-  }
-  
-  .post-entry { 
-    margin-bottom: 2rem;
-  }
-  
-  .post-entry h2 { 
-    margin: 0.5rem 0;
-  }
-  
-  .post-entry h2 a, 
-  .post-entry h2 a:visited {
-    color: blue;
-    text-decoration: none; }
-  
-  .post-entry p { 
-    margin: 0; 
-    font-weight: 400;
-  }
-  
-  .post-entry h2 a:hover { 
-    color: red;
-  }
+.content .actions button {
+  background-color: #5865f2;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Source Sans Pro', sans-serif; 
+  font-size: 18px;
+  font-weight: 600;
+  padding: 8px 10px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.content .actions button a {
+  color: #f1f1f1;
+  text-decoration: none;
+}
+
+h1 {
+  margin: 0;
+  text-shadow: 1.95px 1.95px 2.6px rgba(0, 0, 0, 0.15);
+}
+
+h1.title {
+  text-align: center;
+}
+
+ul {
+  padding: 0;
+}
+
+li.item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+li.item p {
+  margin: 0;
+}
+
+li.item button {
+  background-color: #5865f2;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Source Sans Pro', sans-serif; 
+  font-size: 18px;
+  color: #f1f1f1;
+  font-weight: 600;
+  padding: 4px 8px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.post-entry { 
+  margin-bottom: 2rem;
+}
+
+.post-entry h2 { 
+  margin: 0.5rem 0;
+}
+
+.post-entry h2 a, 
+.post-entry h2 a:visited {
+  color: blue;
+  text-decoration: none;
+}
+
+.post-entry p { 
+  margin: 0; 
+  font-weight: 400;
+}
+
+.post-entry h2 a:hover { 
+  color: red;
+}
+
+button.toggle-tasks {
+  background-color: #5865f2;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+button.toggle-tasks:hover {
+  background-color: #4CAF50;
+}
+
+button.delete-project,
+button.delete-task {
+  background-color: #f44336;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+button.delete-project:hover,
+button.delete-task:hover {
+  background-color: #d32f2f;
+}
+
+button.delete-project i,
+button.delete-task i {
+  font-size: 18px;
+}
+
+.projects-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.project-column {
+  flex: 1 1 30%;
+  max-width: 300px;
+  min-width: 250px;
+  box-sizing: border-box;
+}
