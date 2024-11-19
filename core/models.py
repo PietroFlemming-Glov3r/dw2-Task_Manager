@@ -16,7 +16,7 @@ class Projeto(models.Model):
 
 class Tarefa(models.Model):
     projeto = models.ForeignKey(Projeto, on_delete=models.CASCADE, related_name="tarefas")
-    nome = models.CharField(max_length=100)
+    titulo = models.CharField(max_length=100)
     descricao = models.TextField()
     responsavel = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     prazo = models.DateTimeField(default=timezone.now, blank=True, null=True)

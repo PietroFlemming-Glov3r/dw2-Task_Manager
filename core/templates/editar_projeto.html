@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/projetos.css' %}">
+<div class="criar_projeto">
+    <h1 class="title">Editar Projeto</h1>
+    <form method="POST" class="form">
+        {% csrf_token %}
+        <div class="row">
+            <div class="field">
+                <label for="{{ form.nome.id_for_label }}">Nome:</label>
+                {{ form.nome }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="field">
+                <label for="{{ form.descricao.id_for_label }}">Descrição:</label>
+                {{ form.descricao }}
+            </div>
+        </div>
+        <button type="submit" class="save_projeto">Salvar Projeto</button>
+    </form>
+</div>
+{% endblock %}

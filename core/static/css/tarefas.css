@@ -1,0 +1,64 @@
+div.criar_tarefa {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  padding: 0 20px;
+  max-width: 800px;
+  margin: 20px auto;
+
+  h1.title {
+      text-align: center;
+      color: #2c2e32;
+      margin-bottom: 30px;
+  }
+
+  .form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+  }
+  
+  .row {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 100%;
+  }
+  
+  .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      
+      input, select, textarea {
+          width: 100%;
+          padding: 8px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          min-height: 35px;
+      }
+      
+      textarea {
+          min-height: 100px;
+      }
+  }
+  
+  button {
+      background-color: #5865f2;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Source Sans Pro', sans-serif; 
+      font-size: 18px;
+      color: #f1f1f1;
+      font-weight: 600;
+      padding: 8px 16px;
+      box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+      
+      &.save_tarefa {
+          margin-top: 20px;
+          align-self: flex-end;
+      }
+  }
+}

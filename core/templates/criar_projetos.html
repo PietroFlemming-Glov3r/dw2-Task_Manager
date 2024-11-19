@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/projetos.css' %}">
 <div class="criar_projeto">
     <h1 class="title">Criar Novo Projeto</h1>
     <form method="POST">

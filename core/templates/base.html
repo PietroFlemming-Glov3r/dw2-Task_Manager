@@ -1,4 +1,6 @@
 {% load static %}
+{% load custom_filters %}
+
 <html>
 
 <head>
@@ -51,7 +53,37 @@
         <div class="project-header">
           <h2>{{ projeto.nome }}</h2>
           <p>{{ projeto.descricao }}</p>
+
+          {% with total_tasks=projeto.tarefas.all|length %}
+            {% with completed_tasks=projeto.tarefas.all|filter_status:"concluída"|length %}
+              {% if total_tasks > 0 %}
+                {% with progress=completed_tasks|multiply:100|divide:total_tasks %}
+                  <div class="progress-container">
+                    <div class="progress-bar">
+                      <div class="progress" style="width: {{ progress }}%"></div>
+                    </div>
+                    <span class="progress-text">{{ progress|floatformat:0 }}% Concluído</span>
+                  </div>
+                {% endwith %}
+              {% else %}
+                <div class="progress-container">
+                  <div class="progress-bar">
+                    <div class="progress" style="width: 0%"></div>
+                  </div>
+                  <span class="progress-text">0% Concluído</span>
+                </div>
+              {% endif %}
+            {% endwith %}
+          {% endwith %}
+
           <button class="toggle-tasks" data-project-id="{{ projeto.id }}">Mostrar Tarefas</button>
+
+          <a href="{% url 'editar_projeto' projeto.id %}" class="edit-project">
+            <button type="button">
+                <i class="fas fa-edit"></i>
+            </button>
+          </a>
+
           <form action="{% url 'excluir_projeto' projeto.id %}" method="post" style="display: inline;">
             {% csrf_token %}
             <button type="submit" class="delete-project" onclick="return confirm('Tem certeza que deseja excluir este projeto?');">
@@ -64,38 +96,70 @@
         <ul id="tasks-{{ projeto.id }}" class="tasks-list" style="display: none; margin-top: 10px;">
           {% for tarefa in tarefas %}
           {% if tarefa.projeto == projeto %}
-          <li class="task-item" style="border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; border-radius: 8px; background-color: #f9f9f9;">
-            <!-- Detalhes da Tarefa -->
-            <h3>{{ tarefa.nome }}</h3>
-            <p><strong>Descrição:</strong> {{ tarefa.descricao }}</p>
-            <p><strong>Responsável:</strong> {{ tarefa.responsavel }}</p>
-            <p><strong>Prazo:</strong> {{ tarefa.prazo }}</p>
-            <p><strong>Status:</strong> {{ tarefa.status }}</p>
-            {% if tarefa.status == 'Concluída' %}
-            <p><strong>Data de Conclusão:</strong> {{ tarefa.data_conclusao }}</p>
-            {% endif %}
+          <li class="task-item">
+            <div class="task-content">
+                <div class="task-header">
+                    <h3>{{ tarefa.titulo }}</h3>
+                    <div class="task-actions">
+                        <a href="{% url 'editar_tarefa' tarefa.id %}" class="edit-task">
+                            <button type="button">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </a>
+                        <form action="{% url 'excluir_tarefa' tarefa.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="delete-task" onclick="return confirm('Tem certeza que deseja excluir esta tarefa?');">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <p><strong>Descrição:</strong> {{ tarefa.descricao }}</p>
+                <p><strong>Responsável:</strong> {{ tarefa.responsavel }}</p>
+                <p><strong>Prazo:</strong> {{ tarefa.prazo }}</p>
+                <p><strong>Status:</strong> {{ tarefa.status }}</p>
 
-            <!-- Anexos da Tarefa -->
-            {% with tarefa.anexos.all as anexos %}
-            {% if anexos %}
-            <div class="attachments-section">
-              <h4>Anexos:</h4>
-              <ul>
-                {% for anexo in anexos %}
-                <li>
-                  <a href="{{ anexo.arquivo.url }}" target="_blank">{{ anexo.nome }}</a>
-                </li>
-                {% endfor %}
-              </ul>
+                {% with tarefa.anexos.all as anexos %}
+                {% if anexos %}
+                <div class="attachments-section">
+                    <h4>Anexos:</h4>
+                    <ul>
+                        {% for anexo in anexos %}
+                        <li>
+                            <a href="{{ anexo.arquivo.url }}" target="_blank">{{ anexo.nome }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% endwith %}
+
+                <div class="comments-section">
+                    <h4>Comentários:</h4>
+                    <ul class="comments-list">
+                        {% for comentario in tarefa.comentarios.all %}
+                        <li class="comment-item">
+                            <div class="comment-content">
+                                <p>{{ comentario.conteudo }}</p>
+                                <small>Por {{ comentario.autor }} em {{ comentario.criado_em }}</small>
+                            </div>
+                            <form action="{% url 'excluir_comentario' comentario.id %}" method="post" class="delete-comment-form">
+                                {% csrf_token %}
+                                <button type="submit" class="delete-comment" onclick="return confirm('Tem certeza que deseja excluir este comentário?');">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <form method="POST" action="{% url 'adicionar_comentario' tarefa.id %}" class="comment-form">
+                        {% csrf_token %}
+                        <textarea name="conteudo" class="comment-input" placeholder="Adicione um comentário..."></textarea>
+                        <button type="submit" class="add-comment">Adicionar Comentário</button>
+                    </form>
+                </div>
             </div>
-            {% endif %}
-            {% endwith %}
-            <form action="{% url 'excluir_tarefa' tarefa.id %}" method="post" style="display: inline;">
-              {% csrf_token %}
-              <button type="submit" class="delete-task" onclick="return confirm('Tem certeza que deseja excluir esta tarefa?');">
-                <i class="fas fa-trash-alt"></i>
-              </button>
-            </form>
           </li>
           {% endif %}
           {% endfor %}

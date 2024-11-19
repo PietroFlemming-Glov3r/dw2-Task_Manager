@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
+
 {% load static %}
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/tarefas.css' %}">
 <div class="criar_tarefa">
-    <h1 class="title">Criar Nova Tarefa</h1>
-    <form method="POST" enctype="multipart/form-data" class="form">
+    <h1 class="title">Editar Tarefa</h1>
+    <form method="POST" class="form">
         {% csrf_token %}
-        
         <div class="row">
             <div class="field">
                 <label for="{{ form.titulo.id_for_label }}">Título:</label>
@@ -18,7 +18,6 @@
                 {{ form.responsavel }}
             </div>
         </div>
-
         <div class="row">
             <div class="field">
                 <label for="{{ form.prazo.id_for_label }}">Prazo:</label>
@@ -35,32 +34,18 @@
                 {{ form.status }}
             </div>
         </div>
-
         <div class="row">
             <div class="field">
                 <label for="{{ form.descricao.id_for_label }}">Descrição:</label>
                 {{ form.descricao }}
             </div>
         </div>
-
         <div class="row">
             <div class="field">
                 <label for="{{ form.projeto.id_for_label }}">Projeto:</label>
                 {{ form.projeto }}
             </div>
         </div>
-
-        <div class="row">
-            <div class="field">
-                <label for="{{ anexo_form.arquivo.id_for_label }}">Arquivo:</label>
-                {{ anexo_form.arquivo }}
-            </div>
-            <div class="field">
-                <label for="{{ anexo_form.nome.id_for_label }}">Nome do Arquivo:</label>
-                {{ anexo_form.nome }}
-            </div>
-        </div>
-
         <button type="submit" class="save_tarefa">Salvar Tarefa</button>
     </form>
 </div>
